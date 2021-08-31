@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SwitchProvider _state = Provider.of<SwitchProvider>(context);
     return MaterialApp(
       title: 'Inherited Demo',
       theme: ThemeData(
@@ -46,7 +45,6 @@ class MyApp extends StatelessWidget {
                 // child: const FlutterLogo(size: 75),
               ),
               Switch(
-                hoverColor: Colors.blue,
                 value: selected,
                 onChanged: null,
               ),
@@ -69,14 +67,5 @@ class MyApp extends StatelessWidget {
   int getRandomNumber() {
     Random random = new Random();
     return random.nextInt(256);
-  }
-}
-
-class SwitchProvider extends ChangeNotifier {
-  bool _selected = false;
-  bool get selectedValue => _selected;
-  void _changeSwitch() {
-    _selected = !_selected;
-    notifyListeners();
   }
 }
