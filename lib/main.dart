@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider<SwitchData>(
+      create: (context) => SwitchData(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -45,8 +46,9 @@ class MyApp extends StatelessWidget {
                 // child: const FlutterLogo(size: 75),
               ),
               Switch(
-                value: selected,
-                onChanged: null,
+                value: context.watch<SwitchData>().getData,
+                onChanged: (value) =>
+                    context.read<SwitchData>().changeSwitch(value),
               ),
             ],
           ),
@@ -67,5 +69,17 @@ class MyApp extends StatelessWidget {
   int getRandomNumber() {
     Random random = new Random();
     return random.nextInt(256);
+  }
+}
+
+class SwitchData with ChangeNotifier {
+  bool _data = false;
+
+  bool get getData => _data;
+
+  void changeSwitch(bool newBool) {
+    _data = newBool;
+
+    notifyListeners();
   }
 }
